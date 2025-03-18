@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About SpyHunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .content-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.95);
+            max-height: 80vh;
+            overflow-y: auto;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+        }
+
+        .content-box h2 {
+            color: rgba(255, 255, 255, 1);
+            margin-bottom: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(128, 137, 255, 0.6);
+        }
+
+        .content-box h3 {
+            color: rgba(255, 255, 255, 0.95);
+            margin: 30px 0 15px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.6em;
+            letter-spacing: 1px;
+        }
+
+        .content-box p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            font-weight: 300;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Scrollbar styling */
+        .content-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-box::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .content-box::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .content-box::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="nav-button back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back
+    </a>
+    <div class="content-box page-transition">
+        <h2>🕵️ SpyHunt Discord Bot</h2>
+        <p>A social deduction game where players must find the Spy among them before time runs out!</p>
+        
+        <h3>📝 Description</h3>
+        <p>SpyHunt is an engaging party game where one player is secretly assigned as the Spy while others are Detectives who know a specific location. Through clever questioning and deduction, players must either identify the Spy or survive as the Spy without being caught.</p>
+        
+        <h3>🎮 Features</h3>
+        <p>Bilingual Support: Full support for both English 🇺🇸 and Arabic 🇸🇦<br>
+        Flexible Player Count: Supports 4-15 players<br>
+        Multiple Game Durations: Choose from 5, 8, 10, or 15 minutes</p>
+        
+        <h3>Interactive Gameplay:</h3>
+        <p>- Turn-based questioning system<br>
+        - Real-time voting phase<br>
+        - Private role assignments via DM<br>
+        - Dynamic game status updates</p>
+        
+        <h3>🎯 How to Play</h3>
+        <p>1. Use /spy to start a new game<br>
+        2. Select the number of players and game duration<br>
+        3. Players join using the Join button<br>
+        4. Once full, host starts the game<br>
+        5. Each player receives their role and location (if Detective) in DM<br>
+        6. Players take turns asking questions about the location<br>
+        7. When time ends, players vote for the Spy!</p>
+        
+        <h3>🏆 Win Conditions</h3>
+        <p>Detectives Win → If they successfully identify and vote for the Spy<br>
+        Spy Wins → If they avoid detection until the end or successfully guess the location</p>
+        
+        <h3>🛠️ Commands</h3>
+        <p>/spy - Start a new game<br>
+        /help - View game instructions and rules</p>
+        
+        <h3>🔧 Technical Details</h3>
+        <p>- Built with Discord.js<br>
+        - Features real-time game state management<br>
+        - Automated turn system<br>
+        - Advanced voting mechanics<br>
+        - Bilingual interface support</p>
+        
+        <h3>🎨 Design Features</h3>
+        <p>- Custom embeds for different game phases<br>
+        - Interactive buttons and menus<br>
+        - Dynamic timer displays<br>
+        - Clear visual feedback<br>
+        - Sleek and modern UI</p>
+    </div>
+    <script src="transitions.js"></script>
+</body>
+</html>
