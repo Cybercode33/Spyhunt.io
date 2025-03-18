@@ -121,16 +121,85 @@ async function handleLogin(event) {
 }
 
 async function signInWithGoogle() {
+    // Show loading state
+    const googleButton = document.querySelector('.google-button');
+    const originalContent = googleButton.innerHTML;
+    googleButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+    googleButton.disabled = true;
+
     const provider = new firebase.auth.GoogleAuthProvider();
+    
+    // Request additional permissions
     provider.addScope('email');
+    provider.addScope('profile');
+    
+    // Set custom parameters
+    provider.setCustomParameters({
+        prompt: 'select_account'
+    });
     
     try {
         const result = await auth.signInWithPopup(provider);
-        await saveUserToDb(result.user);
+        const user = result.user;
+        
+        // Get additional profile info
+        const profile = {
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified
+        };
+
+        // Save user data to database
+        await saveUserToDb({
+            ...user,
+            profile,
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
         showAuthSuccess('Successfully signed in with Google!');
         closeAuthModal();
+        
+        // Update UI with profile picture if available
+        updateUserProfileUI(profile);
     } catch (error) {
-        showAuthError(error.message);
+        let errorMessage = 'Google Sign-in failed';
+        
+        switch (error.code) {
+            case 'auth/popup-blocked':
+                errorMessage = 'Please enable popups to sign in with Google';
+                break;
+            case 'auth/popup-closed-by-user':
+                errorMessage = 'Sign-in cancelled. Please try again';
+                break;
+            case 'auth/account-exists-with-different-credential':
+                errorMessage = 'An account already exists with this email';
+                break;
+            default:
+                errorMessage = error.message;
+        }
+        
+        showAuthError(errorMessage);
+    } finally {
+        // Restore button state
+        googleButton.innerHTML = originalContent;
+        googleButton.disabled = false;
+    }
+}
+
+// Add new function to update UI with profile
+function updateUserProfileUI(profile) {
+    const authButton = document.querySelector('.nav-button[onclick="openAuthModal()"]');
+    
+    if (profile.photoURL) {
+        authButton.innerHTML = `
+            <div class="user-profile">
+                <img src="${profile.photoURL}" alt="Profile" class="profile-pic">
+                <span>${profile.name}</span>
+            </div>
+        `;
+    } else {
+        authButton.innerHTML = `<i class="fas fa-user-check"></i> ${profile.name}`;
     }
 }
 
